@@ -377,6 +377,23 @@ class SIYISDK:
             return False
         return True
 
+    def requestZoomLevel(self, level):
+        """
+        Sends request for zoom level
+
+        Parameters
+        --
+        level: [int] zoom level
+
+        Returns
+        --
+        [bool] True: success. False: fail
+        """
+        msg = self._out_msg.zoomLevelMsg(level)
+        if not self.sendMsg(msg):
+            return False
+        return True
+
     def requestZoomIn(self):
         """
         Sends request for zoom in

@@ -88,6 +88,7 @@ class COMMAND:
     ACQUIRE_HW_ID = '02'
     AUTO_FOCUS = '04'
     MANUAL_ZOOM = '05'
+    ABSOLUTE_ZOOM = '0F'
     MANUAL_FOCUS = '06'
     GIMBAL_ROT = '07'
     CENTER = '08'
@@ -393,6 +394,22 @@ class SIYIMESSAGE:
         """
         data=""
         cmd_id = COMMAND.ACQUIRE_GIMBAL_ATT
+        return self.encodeMsg(data, cmd_id)
+
+    def zoomLevelMsg(self, level):
+        """
+        Zoom level msg
+        """
+        if level>30:
+            level=30
+        if level<1:
+            level=1
+
+        integer_part = toHex(int(level), 8)
+        fractional_part = toHex(level % 10, 8)
+
+        data=integer_part+fractional_part
+        cmd_id = COMMAND.ABSOLUTE_ZOOM
         return self.encodeMsg(data, cmd_id)
 
     def zoomInMsg(self):
