@@ -406,7 +406,7 @@ class SIYIMESSAGE:
             level=1
 
         integer_part = toHex(int(level), 8)
-        fractional_part = toHex(level % 10, 8)
+        fractional_part = toHex(int(level * 10 % 10), 8)
 
         data=integer_part+fractional_part
         cmd_id = COMMAND.ABSOLUTE_ZOOM
