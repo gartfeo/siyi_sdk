@@ -29,6 +29,10 @@ class ManualZoomMsg:
     seq=0
     level=-1
 
+class AbsoluteZoomMsg:
+    seq=0
+    success=False
+
 class ManualFocusMsg:
     seq=0
     success=False
