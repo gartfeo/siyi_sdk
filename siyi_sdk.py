@@ -289,6 +289,8 @@ class SIYISDK:
                 self.parseManualFocusMsg(data, seq)
             elif cmd_id==COMMAND.MANUAL_ZOOM:
                 self.parseZoomMsg(data, seq)
+            elif cmd_id==COMMAND.ABSOLUTE_ZOOM:
+                self.parseZoomMsg(data, seq)
             elif cmd_id==COMMAND.CENTER:
                 self.parseGimbalCenterMsg(data, seq)
             else:
