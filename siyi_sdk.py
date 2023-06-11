@@ -53,7 +53,6 @@ class SIYISDK:
         self._hw_msg = HardwareIDMsg()
         self._autoFocus_msg = AutoFocusMsg()
         self._manualZoom_msg=ManualZoomMsg()
-        self._absoluteZoom_msg=AbsoluteZoomMsg()
         self._manualFocus_msg=ManualFocusMsg()
         self._gimbalSpeed_msg=GimbalSpeedMsg()
         self._center_msg=CenterMsg()
@@ -93,7 +92,6 @@ class SIYISDK:
         self._hw_msg = HardwareIDMsg()
         self._autoFocus_msg = AutoFocusMsg()
         self._manualZoom_msg=ManualZoomMsg()
-        self._absoluteZoom_msg=AbsoluteZoomMsg()
         self._manualFocus_msg=ManualFocusMsg()
         self._gimbalSpeed_msg=GimbalSpeedMsg()
         self._center_msg=CenterMsg()
@@ -205,6 +203,7 @@ class SIYISDK:
         msg [str] Message to send
         """
         b = bytes.fromhex(msg)
+        # print(b)
         try:
             self._socket.sendto(b, (self._server_ip, self._port))
             return True
@@ -292,11 +291,11 @@ class SIYISDK:
             elif cmd_id==COMMAND.MANUAL_ZOOM:
                 self.parseZoomMsg(data, seq)
             elif cmd_id==COMMAND.ABSOLUTE_ZOOM:
-                self.parseAbsoluteZoomMsg(data, seq)
+                self.parseZoomMsg(data, seq)
             elif cmd_id==COMMAND.CENTER:
                 self.parseGimbalCenterMsg(data, seq)
             else:
-                self._logger.warning("CMD ID is not recognized")
+                self._logger.warning("CMD ID is not recognized: " + str(cmd_id))
         
         return
     
@@ -658,19 +657,6 @@ class SIYISDK:
 
             
             self._logger.debug("Zoom level %s", self._manualZoom_msg.level)
-
-            return True
-        except Exception as e:
-            self._logger.error("Error %s", e)
-            return False
-
-    def parseAbsoluteZoomMsg(self, msg: str, seq: int):
-
-        try:
-            self._absoluteZoom_msg.seq = seq
-            self._absoluteZoom_msg.success = bool(int('0x' + msg, base=16))
-
-            self._logger.debug("Absolute zoom success: %s", self._absoluteZoom_msg.success)
 
             return True
         except Exception as e:

@@ -29,10 +29,6 @@ class ManualZoomMsg:
     seq=0
     level=-1
 
-class AbsoluteZoomMsg:
-    seq=0
-    success=False
-
 class ManualFocusMsg:
     seq=0
     success=False
@@ -92,7 +88,7 @@ class COMMAND:
     ACQUIRE_HW_ID = '02'
     AUTO_FOCUS = '04'
     MANUAL_ZOOM = '05'
-    ABSOLUTE_ZOOM = '0F'
+    ABSOLUTE_ZOOM = '0f'
     MANUAL_FOCUS = '06'
     GIMBAL_ROT = '07'
     CENTER = '08'
@@ -406,8 +402,8 @@ class SIYIMESSAGE:
         """
         if level>30:
             level=30
-        if level<1:
-            level=1
+        if level<=0:
+            level=0.1
 
         integer_part = toHex(int(level), 8)
         fractional_part = toHex(int(level * 10 % 10), 8)
