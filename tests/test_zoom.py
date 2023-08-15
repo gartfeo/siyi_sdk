@@ -25,7 +25,7 @@ def test():
         print("No connection ")
         exit(1)
 
-    cam.requestZoomLevel(5)
+    cam.requestZoomLevel(4.5)
     sleep(3)
     # print("Zoom level: ", cam.getZoomLevel())
     #

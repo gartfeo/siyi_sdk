@@ -203,7 +203,6 @@ class SIYISDK:
         msg [str] Message to send
         """
         b = bytes.fromhex(msg)
-        # print(b)
         try:
             self._socket.sendto(b, (self._server_ip, self._port))
             return True
@@ -393,6 +392,7 @@ class SIYISDK:
         [bool] True: success. False: fail
         """
         msg = self._out_msg.zoomLevelMsg(level)
+        print(msg)
         if not self.sendMsg(msg):
             return False
         return True

@@ -276,7 +276,7 @@ class SIYIMESSAGE:
 
         return data, data_len, cmd_id, seq
 
-    def encodeMsg(self, data, cmd_id):
+    def encodeMsg(self, data, cmd_id, seq_msg='0000'):
         """
         Encodes a msg according to SDK protocol
 
@@ -287,7 +287,7 @@ class SIYIMESSAGE:
         seq = self.incrementSEQ(self._seq)
         data_len = self.computeDataLen(data)
         # msg_front = self.HEADER+self._ctr+data_len+seq+cmd_id+data
-        msg_front = self.HEADER+self._ctr+data_len+'0000'+cmd_id+data
+        msg_front = self.HEADER+self._ctr+data_len+seq_msg+cmd_id+data
         crc = crc16_str_swap(msg_front)
         if crc is not None:
             msg = msg_front+crc
@@ -411,7 +411,7 @@ class SIYIMESSAGE:
 
         data=integer_part+fractional_part
         cmd_id = COMMAND.ABSOLUTE_ZOOM
-        return self.encodeMsg(data, cmd_id)
+        return self.encodeMsg(data, cmd_id, '0100')
 
     def zoomInMsg(self):
         """
