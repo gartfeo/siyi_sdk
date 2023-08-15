@@ -69,7 +69,7 @@ class FuncFeedbackInfoMsg:
     SUCCESSFUL=0
     PHOTO_FAIL=1
     HDR_ON=2
-    HDR_ON=3
+    HDR_OFF=3
     RECROD_FAIL=4
 
 class AttitdueMsg:
@@ -146,6 +146,7 @@ class SIYIMESSAGE:
             return "0000"
         if val> 65535:
             self._logger.warning("Sequence value is greater than 65535. Resetting to zero")
+            self._seq = 0
             return "0000"
         if val<0:
             self._logger.warning("Sequence value is negative. Resetting to zero")
