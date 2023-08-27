@@ -37,6 +37,10 @@ class GimbalSpeedMsg:
     seq=0
     success=False
 
+class AbsZoomMsg:
+    seq=0
+    success=False
+
 class CenterMsg:
     seq=0
     success=False

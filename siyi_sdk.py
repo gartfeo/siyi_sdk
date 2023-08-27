@@ -55,6 +55,7 @@ class SIYISDK:
         self._manualZoom_msg=ManualZoomMsg()
         self._manualFocus_msg=ManualFocusMsg()
         self._gimbalSpeed_msg=GimbalSpeedMsg()
+        self._abs_zoom_msg=AbsZoomMsg()
         self._center_msg=CenterMsg()
         self._record_msg=RecordingMsg()
         self._mountDir_msg=MountDirMsg()
@@ -94,6 +95,7 @@ class SIYISDK:
         self._manualZoom_msg=ManualZoomMsg()
         self._manualFocus_msg=ManualFocusMsg()
         self._gimbalSpeed_msg=GimbalSpeedMsg()
+        self._abs_zoom_msg=AbsZoomMsg()
         self._center_msg=CenterMsg()
         self._record_msg=RecordingMsg()
         self._mountDir_msg=MountDirMsg()
@@ -290,7 +292,7 @@ class SIYISDK:
             elif cmd_id==COMMAND.MANUAL_ZOOM:
                 self.parseZoomMsg(data, seq)
             elif cmd_id==COMMAND.ABSOLUTE_ZOOM:
-                self.parseZoomMsg(data, seq)
+                self.parseAbsoluteZoomMsg(data, seq)
             elif cmd_id==COMMAND.CENTER:
                 self.parseGimbalCenterMsg(data, seq)
             else:
@@ -657,6 +659,19 @@ class SIYISDK:
 
             
             self._logger.debug("Zoom level %s", self._manualZoom_msg.level)
+
+            return True
+        except Exception as e:
+            self._logger.error("Error %s", e)
+            return False
+
+    def parseAbsoluteZoomMsg(self, msg:str, seq:int):
+        try:
+            self._abs_zoom_msg.seq=seq
+            self._abs_zoom_msg.success = bool(int('0x'+msg, base=16))
+
+
+            self._logger.debug("Absolute zoom success: %s", self._abs_zoom_msg.success)
 
             return True
         except Exception as e:
