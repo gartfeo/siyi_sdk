@@ -408,6 +408,7 @@ class SIYISDK:
         [bool] True: success. False: fail
         """
         msg = self._out_msg.zoomInMsg()
+        print(msg)
         if not self.sendMsg(msg):
             return False
         return True
@@ -421,6 +422,7 @@ class SIYISDK:
         [bool] True: success. False: fail
         """
         msg = self._out_msg.zoomOutMsg()
+        print(msg)
         if not self.sendMsg(msg):
             return False
         return True
@@ -434,6 +436,7 @@ class SIYISDK:
         [bool] True: success. False: fail
         """
         msg = self._out_msg.stopZoomMsg()
+        print(msg)
         if not self.sendMsg(msg):
             return False
         return True
@@ -654,6 +657,7 @@ class SIYISDK:
     def parseZoomMsg(self, msg:str, seq:int):
         
         try:
+            print("Response: ", msg)
             self._manualZoom_msg.seq=seq
             self._manualZoom_msg.level = int('0x'+msg[2:4]+msg[0:2], base=16) /10.
 
